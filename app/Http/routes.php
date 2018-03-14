@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@index');
 
 //ユーザー登録
 Route::get('signup', 'Auth\AuthController@getRegister')->name('signup.get');
@@ -25,5 +23,8 @@ Route::post('login', 'Auth\AuthController@postLogin')->name('login.post');
 Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('items', 'ItemsController', ['only' => ['create']]);
+    Route::resource('items', 'ItemsController', ['only' => ['create', 'show']]);
+    Route::post('want', 'ItemUserController@want')->name('item_user.want');
+    Route::delete('want', 'ItemUserController@dont_want')->name('item_user.dont_want');
+    Route::resource('users', 'UsersController', ['only' => ['show']]);
 });
