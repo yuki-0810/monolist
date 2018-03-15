@@ -19,12 +19,25 @@ class RankingController extends Controller
     public function want()
     {
         $items = \DB::table('item_user')->join('items', 'item_user.item_id', '=', 'items.id')->select('items.*', \DB::raw('COUNT(*) as count'))->where('type', 'want')->groupBy('items.id')->orderBy('count', 'DESC')->take(10)->get();
+        $type = 'want';
 
         return view('ranking.want', [
             'items' => $items,
+            'type'  => $type,
         ]);
     }
-     
+    
+    public function have()
+    {
+        $items = \DB::table('item_user')->join('items', 'item_user.item_id', '=', 'items.id')->select('items.*', \DB::raw('COUNT(*) as count'))->where('type', 'have')->groupBy('items.id')->orderBy('count', 'DESC')->take(10)->get();
+        $type = 'have';
+
+        return view('ranking.have', [
+            'items' => $items,
+            'type'  => $type,
+        ]);
+    }  
+    
     public function index()
     {
         //

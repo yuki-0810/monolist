@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
     //Have機能
     Route::post('have', 'ItemUserController@have')->name('item_user.have');
     Route::delete('have', 'ItemUserController@dont_have')->name('item_user.dont_have');
+    //Haveランキング
+    Route::get('ranking/have', 'RankingController@have')->name('ranking.have');
     
     Route::resource('users', 'UsersController', ['only' => ['show']]);
 });
