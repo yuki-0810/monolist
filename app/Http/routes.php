@@ -23,10 +23,13 @@ Route::post('login', 'Auth\AuthController@postLogin')->name('login.post');
 Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::group(['middleware' => 'auth'], function () {
+    
     Route::resource('items', 'ItemsController', ['only' => ['create', 'show']]);
     //Want機能
     Route::post('want', 'ItemUserController@want')->name('item_user.want');
     Route::delete('want', 'ItemUserController@dont_want')->name('item_user.dont_want');
+    //Wantランキング
+    Route::get('ranking/want', 'RankingController@want')->name('ranking.want');
     //Have機能
     Route::post('have', 'ItemUserController@have')->name('item_user.have');
     Route::delete('have', 'ItemUserController@dont_have')->name('item_user.dont_have');
